@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SmartLib.Models.Book>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brief)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PubYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QtyInStock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ViewNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BorrowNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CopyNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CoverImg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Brief)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Publisher)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PubYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QtyInStock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ViewNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BorrowNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CopyNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CoverImg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

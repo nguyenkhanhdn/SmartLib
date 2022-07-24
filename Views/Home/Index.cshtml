@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SmartLib.Models.Book>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@foreach (var item in Model){
+    <div class="col-lg-4 col-md-4 d-flex align-items-stretch">
+        <div class="member">
+            <a href="/Books/Details/@item.Id">
+                <img src="@item.CoverImg" class="img-fluid" alt="@item.Title" />
+            </a>
+            <div class="member-content">
+                <h4>@item.Title</h4>
+                <span>@item.Author - @item.Publisher - @item.BookCode</span>
+                <p>
+                    @{
+                        if (item.Brief.Length > 200)
+                        {
+                            @Html.Raw(item.Brief.Substring(0, 200));
+                        }
+                        else
+                        {
+                            @Html.Raw(item.Brief.Substring(0, item.Brief.Length));
+                        }
+                    }
+                </p>
+                <div class="social">
+                    <a href=""><i class="bi bi-twitter"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>  
+    </div>
+}
