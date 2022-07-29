@@ -35,8 +35,8 @@
           <Property Name="Author" Type="nvarchar" MaxLength="100" />
           <Property Name="BookCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="QtyInStock" Type="int" />
-          <Property Name="ViewNo" Type="tinyint" />
-          <Property Name="BorrowNo" Type="tinyint" />
+          <Property Name="ViewNo" Type="int" />
+          <Property Name="BorrowNo" Type="int" />
           <Property Name="CopyNo" Type="int" />
           <Property Name="CoverImg" Type="nvarchar" MaxLength="250" />
         </EntityType>
@@ -315,8 +315,8 @@
           <Property Name="Author" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="BookCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="QtyInStock" Type="Int32" />
-          <Property Name="ViewNo" Type="Byte" />
-          <Property Name="BorrowNo" Type="Byte" />
+          <Property Name="ViewNo" Type="Int32" />
+          <Property Name="BorrowNo" Type="Int32" />
           <Property Name="CopyNo" Type="Int32" />
           <Property Name="CoverImg" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Category" Relationship="SmartLibModel.FK_Books_Books" FromRole="Book" ToRole="Category" />
