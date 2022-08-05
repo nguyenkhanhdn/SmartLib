@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -37,8 +39,8 @@
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
-            <h1 class="logo me-auto"><a href="index.html">SMART LIBRARY</a></h1>
-                <nav id="navbar" class="navbar order-last order-lg-0">
+            <h1 class="logo"><a href="/Home">SMART LIBRARY</a></h1>
+            <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
                     <li>@Html.ActionLink("Trang chủ", "Index", "Home")</li>
                     <li>@Html.ActionLink("Giới thiệu", "About", "Home")</li>
@@ -46,14 +48,28 @@
                     <li>@Html.ActionLink("Sách của bạn", "yourcart", "Home")</li>
                     <li>
                         <div class="searchBox">
-                            <form action="" method="post">
-                                <input type="text" name="searchKey"><input type="submit" value="Tìm kiếm">
+                            <form action="/Home/SearchBook" method="post">
+                                <input type="text" name="bookTitle" placeholder="Tên sách cần tìm"/>
+                                <input type="submit" value="Tìm kiếm" />
                             </form>
                         </div>
                     </li>
-                    <li>@Html.ActionLink("Register", "Register", "Account")</li>
-                    <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        {
+                            @Html.AntiForgeryToken()                           
+                            <li>&nbsp; Hi, @User.Identity.GetUserName()!<a style="display:inline-block;" href="javascript:document.getElementById('logoutForm').submit()">Đăng xuất</a></li>
+                        }
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Đăng ký", "Register", "Account")</li>
+                        <li>@Html.ActionLink("Đăng nhập", "Login", "Account")</li>
+                    }              
+                    
                 </ul>
+                
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
         </div>
@@ -66,21 +82,18 @@
                 <br>ngày mai tươi sáng.
             </h1>
             <h2><i class="bi bi-quote"></i>Cho con một hòm vàng không bằng dạy cho con một quyển sách hay<i class="bi bi-quote"></i> - Vi Hiền Truyện.</h2>
-            <a href="courses.html" class="btn-get-started">Bắt đầu</a>
+            <a href="/home/explorer" class="btn-get-started">Bắt đầu</a>
         </div>
     </section><!-- End Hero -->
 
-    <main id="main">   
+    <main id="main">
         <!-- ======= Trainers Section ======= -->
         <section id="trainers" class="trainers">
             <div class="container" data-aos="fade-up">
-                <div class="section-title">
-                    <h2>B O O K S</h2>
-                    <p>SÁCH HAY GỢI Ý</p>
-                </div>
+                
                 <div class="row" data-aos="zoom-in" data-aos-delay="100">
                     @RenderBody()
-                    
+
                 </div>
 
             </div>
@@ -112,7 +125,7 @@
                             <li><i class="bx bx-chevron-right"></i> <a href="#">Giới thiệu</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#">Liên hệ</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#">Sách của bạn</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Chính sách mượn trả</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="~/Home/Policy">Quy định mượn trả sách</a></li>
                         </ul>
                     </div>
 
@@ -175,5 +188,7 @@
 
     <!-- Template Main JS File -->
     <script src="~/assets/js/main.js"></script>
+
+    @RenderSection("Scripts",required:false)
 </body>
 </html>

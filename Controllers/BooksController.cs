@@ -22,6 +22,7 @@ namespace SmartLib.Controllers
         }
 
         // GET: Books/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -29,10 +30,14 @@ namespace SmartLib.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Book book = db.Books.Find(id);
+
             if (book == null)
             {
                 return HttpNotFound();
             }
+            book.ViewNo = book.ViewNo + 1;
+            db.Entry(book).State = EntityState.Modified;
+            db.SaveChanges();
             return View(book);
         }
 

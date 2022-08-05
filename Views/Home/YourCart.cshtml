@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "YourCart";
+    Layout = "~/Views/Shared/_LayoutSecurity.cshtml";
+}
+
+<div class="col-12">
+   
+    <h2 style="padding:15px 0px;">Giỏ sách cần mượn</h2>
+    @{ var cart = Session["cart"] as SmartLib.Controllers.BookCart;}
+    <table class="table table-bordered">
+        <tr>
+            <th>TT</th>
+            <th>Mã sách</th>
+            <th>Tên sách</th>
+            <th>Số lượng</th>
+            <th>Thao tác</th>
+        </tr>
+        @if (cart != null)
+        {
+            for (int i = 0; i < cart.CartItems.Rows.Count; i++)
+            {
+                var j = i + 1;
+                <tr>
+                    <td>@j</td>
+                    <td>@cart.CartItems.Rows[i][0].ToString()</td>
+                    <td>@cart.CartItems.Rows[i][1].ToString()</td>
+                    <td>@cart.CartItems.Rows[i][2].ToString()</td>
+                    <td>
+                        @Html.ActionLink("Xóa", "RemoveBook", "Home",
+                        new { @Id = cart.CartItems.Rows[i][0].ToString() },
+                        new { @class = "btn btn-danger" })
+                    </td>
+                    
+                </tr>
+            }
+        }
+    </table>
+    
+    <p></p>
+    <div>
+        @Html.ActionLink("Quay về trang chủ", "Index") | @Html.ActionLink("Quay về trang tìm sách", "Explorer", "Home")
+    </div>
+    <hr />
+    @Html.ActionLink("Đăng ký mượn", "Registration", "Home", null, new { @class = "btn btn-success" })
+</div>

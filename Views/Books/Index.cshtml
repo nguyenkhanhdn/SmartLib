@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>DANH MỤC SÁCH</h2>
@@ -10,7 +10,7 @@
 <p>
     @Html.ActionLink("Thêm sách mới", "Create")
 </p>
-<table class="display table-bordered table-responsive-sm" id="books">
+<table class="display table-responsive" id="books">
     <thead>
         <tr>
             <th>
@@ -43,9 +43,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.CopyNo)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.CoverImg)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Category.Name)
             </th>
@@ -87,9 +87,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CopyNo)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.CoverImg)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>

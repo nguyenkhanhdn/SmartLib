@@ -2,114 +2,67 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutSecurity.cshtml";
 }
 
-<h2>Details</h2>
+<h2>CHI TIẾT SÁCH</h2>
 
 <div>
-    <h4>Book</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+    <table class="table display table-responsive">
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Title)</td>
+            <td>@Html.DisplayFor(model => model.Title)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Brief)</td>
+            <td>@Html.Raw(Model.Brief)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Publisher)</td>
+            <td>@Html.DisplayFor(model => model.Publisher)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.PubYear)</td>
+            <td>@Html.DisplayFor(model => model.PubYear)</td>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Brief)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Brief)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Publisher)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Publisher)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PubYear)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PubYear)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BookCode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BookCode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.QtyInStock)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.QtyInStock)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ViewNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ViewNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BorrowNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BorrowNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CopyNo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CopyNo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CoverImg)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CoverImg)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-
-    </dl>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Author)</td>
+            <td>@Html.DisplayFor(model => model.Author)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.BookCode)</td>
+            <td>@Html.DisplayFor(model => model.BookCode)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.QtyInStock)</td>
+            <td>@Html.DisplayFor(model => model.QtyInStock)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.ViewNo)</td>
+            <td>@Html.DisplayFor(model => model.ViewNo)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.BorrowNo)</td>
+            <td>@Html.DisplayFor(model => model.BorrowNo)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.CopyNo)</td>
+            <td>@Html.DisplayFor(model => model.CopyNo)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.CoverImg)</td>
+            <td><img src="@Model.CoverImg" style="width:300px;height:auto;" /></td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Category.Name)</td>
+            <td>@Html.DisplayFor(model => model.Category.Name)</td>
+        </tr>
+    </table>   
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a href="//Home/AddToCart/@Model.Id" class="btn btn-success">Mượn sách</a>
+     |
     @Html.ActionLink("Back to List", "Index")
 </p>
