@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace SmartLib.Controllers
 {
     [Authorize(Users = "admin")]
-    public class adminController : Controller
+    public class AdminController : Controller
     {
         // GET: admin
         public ActionResult Index()

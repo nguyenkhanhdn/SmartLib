@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SmartLib.Models.Category>
+
+@{
+    ViewBag.Title = "Loại sách";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>LOẠI SÁCH</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+</p>
+<hr />
+<table class="table display table-responsive" id="categories">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.CategoryId }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.CategoryId }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.CategoryId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#categories').DataTable();
+        });
+    </script>
+}

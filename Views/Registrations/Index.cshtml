@@ -1,0 +1,87 @@
+﻿@model IEnumerable<SmartLib.Models.Registration>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Đăng ký mượn sách</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+</p>
+<hr />
+<table class="table display table-responsive" id="Registration">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecMethod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecMethod)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#Registration').DataTable();
+        });
+    </script>
+}
