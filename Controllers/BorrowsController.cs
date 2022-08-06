@@ -17,7 +17,7 @@ namespace SmartLib.Controllers
         // GET: Borrows
         public ActionResult Index()
         {
-            var borrows = db.Borrows.Include(b => b.Student);
+            var borrows = db.Borrows.Include(b => b.Book).Include(b => b.Student);
             return View(borrows.ToList());
         }
 
@@ -39,7 +39,8 @@ namespace SmartLib.Controllers
         // GET: Borrows/Create
         public ActionResult Create()
         {
-            ViewBag.Id = new SelectList(db.Students, "Id", "Name");
+            ViewBag.BookCode = new SelectList(db.Books, "BookCode", "Title");
+            ViewBag.StudentId = new SelectList(db.Students, "Id", "Name");
             return View();
         }
 
@@ -57,7 +58,8 @@ namespace SmartLib.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Id = new SelectList(db.Students, "Id", "Name", borrow.Id);
+            ViewBag.BookCode = new SelectList(db.Books, "BookCode", "Title", borrow.BookCode);
+            ViewBag.StudentId = new SelectList(db.Students, "Id", "Name", borrow.StudentId);
             return View(borrow);
         }
 
@@ -73,7 +75,8 @@ namespace SmartLib.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Id = new SelectList(db.Students, "Id", "Name", borrow.Id);
+            ViewBag.BookCode = new SelectList(db.Books, "BookCode", "Title", borrow.BookCode);
+            ViewBag.StudentId = new SelectList(db.Students, "Id", "Name", borrow.StudentId);
             return View(borrow);
         }
 
@@ -90,7 +93,8 @@ namespace SmartLib.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Id = new SelectList(db.Students, "Id", "Name", borrow.Id);
+            ViewBag.BookCode = new SelectList(db.Books, "BookCode", "Title", borrow.BookCode);
+            ViewBag.StudentId = new SelectList(db.Students, "Id", "Name", borrow.StudentId);
             return View(borrow);
         }
 
@@ -120,20 +124,6 @@ namespace SmartLib.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult DueDate()
-        {
-            var borrows = db.Borrows.ToList();
-
-            var duebooks = borrows.Where((b => b.BorrowDate.AddDays(14) < DateTime.Today));
-            duebooks = duebooks.Where(d => d.ReturnDate == null);
-            return View(duebooks);
-        }
-        public ActionResult NotReturn()
-        {
-            var borrows = db.Borrows.ToList();
-            var notReturnedBooks = borrows.Where(d => d.ReturnDate == null);
-            return View(notReturnedBooks);
-        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

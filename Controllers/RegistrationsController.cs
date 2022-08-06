@@ -10,6 +10,7 @@ using SmartLib.Models;
 
 namespace SmartLib.Controllers
 {
+    [Authorize(Users = "admin")]
     public class RegistrationsController : Controller
     {
         private SmartLibEntities db = new SmartLibEntities();
@@ -17,7 +18,7 @@ namespace SmartLib.Controllers
         // GET: Registrations
         public ActionResult Index()
         {
-            var registrations = db.Registrations.Include(r => r.Student);
+            var registrations = db.Registrations.Include(r => r.Book).Include(r => r.Student);
             return View(registrations.ToList());
         }
 
@@ -39,7 +40,8 @@ namespace SmartLib.Controllers
         // GET: Registrations/Create
         public ActionResult Create()
         {
-            ViewBag.MemberID = new SelectList(db.Students, "Id", "Name");
+            ViewBag.BookCode = new SelectList(db.Books, "BookCode", "Title");
+            ViewBag.StudentId = new SelectList(db.Students, "Id", "Name");
             return View();
         }
 
@@ -48,7 +50,7 @@ namespace SmartLib.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,MemberID,BookCode,RegDate,RecMethod,Address,Phone,Note,Status")] Registration registration)
+        public ActionResult Create([Bind(Include = "Id,StudentId,BookCode,RegDate,RecMethod,Address,Phone,Note,Status")] Registration registration)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +59,8 @@ namespace SmartLib.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MemberID = new SelectList(db.Students, "Id", "Name", registration.MemberID);
+            ViewBag.BookCode = new SelectList(db.Books, "BookCode", "Title", registration.BookCode);
+            ViewBag.StudentId = new SelectList(db.Students, "Id", "Name", registration.StudentId);
             return View(registration);
         }
 
@@ -73,7 +76,8 @@ namespace SmartLib.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MemberID = new SelectList(db.Students, "Id", "Name", registration.MemberID);
+            ViewBag.BookCode = new SelectList(db.Books, "BookCode", "Title", registration.BookCode);
+            ViewBag.StudentId = new SelectList(db.Students, "Id", "Name", registration.StudentId);
             return View(registration);
         }
 
@@ -82,7 +86,7 @@ namespace SmartLib.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,MemberID,BookCode,RegDate,RecMethod,Address,Phone,Note,Status")] Registration registration)
+        public ActionResult Edit([Bind(Include = "Id,StudentId,BookCode,RegDate,RecMethod,Address,Phone,Note,Status")] Registration registration)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +94,8 @@ namespace SmartLib.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MemberID = new SelectList(db.Students, "Id", "Name", registration.MemberID);
+            ViewBag.BookCode = new SelectList(db.Books, "BookCode", "Title", registration.BookCode);
+            ViewBag.StudentId = new SelectList(db.Students, "Id", "Name", registration.StudentId);
             return View(registration);
         }
 

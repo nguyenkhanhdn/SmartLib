@@ -128,7 +128,7 @@ namespace SmartLib.Controllers
                 {
                     regInfo = new Registration();
                     regInfo.BookCode = GetBookCodeFromBookId(int.Parse(row[0].ToString()));
-                    regInfo.MemberID = int.Parse(StudentId);
+                    regInfo.StudentId = int.Parse(StudentId);
                     regInfo.RegDate = DateTime.Parse(RegDate);
                     regInfo.RecMethod = RecMethod;
                     regInfo.Address = address;

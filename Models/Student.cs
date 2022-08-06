@@ -15,26 +15,25 @@ namespace SmartLib.Models
 
     public partial class Student
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Student()
         {
+            this.Borrows = new HashSet<Borrow>();
             this.Registrations = new HashSet<Registration>();
         }
-        [Display(Name = "Mã học sinh")]
+    
         public int Id { get; set; }
-        [Display(Name = "Họ và tên")]
+        [Display(Name = "Tên học sinh")]
         public string Name { get; set; }
-        [Display(Name = "Lớp")]
-        public Nullable<int> ClassId { get; set; }
+        [Display(Name = "Tên lớp")]
+        public int ClassId { get; set; }
         [Display(Name = "Địa chỉ")]
         public string Address { get; set; }
         [Display(Name = "Điện thoại")]
         public string Phone { get; set; }
         [Display(Name = "Email")]
-        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
     
-        public virtual Borrow Borrow { get; set; }
+        public virtual ICollection<Borrow> Borrows { get; set; }
         public virtual Class Class { get; set; }
         public virtual ICollection<Registration> Registrations { get; set; }
     }

@@ -4,19 +4,10 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-<h2>Đăng ký mượn sách</h2>
-
-<p>
-    @Html.ActionLink("Thêm mới", "Create")
-</p>
-<hr />
-<table class="table display table-responsive" id="Registration">
+<h2>Đăng ký mượn</h2>
+<table class="table display table-responsive" id="registration">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.BookCode)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.RegDate)
             </th>
@@ -36,18 +27,20 @@
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Book.Title)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Student.Name)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
+
+
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookCode)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RegDate)
                 </td>
@@ -67,12 +60,13 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Student.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
                 </td>
             </tr>
         }
@@ -81,7 +75,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#Registration').DataTable();
+            $('#registration').DataTable();
         });
     </script>
 }

@@ -26,11 +26,11 @@ namespace SmartLib.Models
         }
     
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<Borrow> Borrows { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
-        public virtual DbSet<Registration> Registrations { get; set; }
-        public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<Registration> Registrations { get; set; }
+        public virtual DbSet<Borrow> Borrows { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
     }
 }

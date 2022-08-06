@@ -24,7 +24,7 @@
         </EntityType>
         <EntityType Name="Books">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="BookCode" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
@@ -70,7 +70,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
           <Property Name="BookCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="RegDate" Type="date" />
           <Property Name="RecMethod" Type="nvarchar" MaxLength="150" />
@@ -102,15 +102,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Borrows_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="Borrows" Type="Self.Borrows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="BookCode" />
+            </Principal>
+            <Dependent Role="Borrows">
+              <PropertyRef Name="BookCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Borrows_Students">
-          <End Role="Students" Type="Self.Students" Multiplicity="1" />
-          <End Role="Borrows" Type="Self.Borrows" Multiplicity="0..1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="Borrows" Type="Self.Borrows" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Students">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Borrows">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Registration_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="Registration" Type="Self.Registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="BookCode" />
+            </Principal>
+            <Dependent Role="Registration">
+              <PropertyRef Name="BookCode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -122,7 +146,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Registration">
-              <PropertyRef Name="MemberID" />
+              <PropertyRef Name="StudentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -150,9 +174,17 @@
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Books" EntitySet="Books" />
           </AssociationSet>
+          <AssociationSet Name="FK_Borrows_Books" Association="Self.FK_Borrows_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="Borrows" EntitySet="Borrows" />
+          </AssociationSet>
           <AssociationSet Name="FK_Borrows_Students" Association="Self.FK_Borrows_Students">
             <End Role="Students" EntitySet="Students" />
             <End Role="Borrows" EntitySet="Borrows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Registration_Books" Association="Self.FK_Registration_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="Registration" EntitySet="Registration" />
           </AssociationSet>
           <AssociationSet Name="FK_Registration_Students" Association="Self.FK_Registration_Students">
             <End Role="Students" EntitySet="Students" />
@@ -184,18 +216,6 @@
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="Borrow">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StudentId" Type="Int32" />
-          <Property Name="BookCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BorrowDate" Type="DateTime" Precision="0" />
-          <Property Name="ReturnDate" Type="DateTime" Precision="0" />
-          <Property Name="Returned" Type="Boolean" />
-          <NavigationProperty Name="Student" Relationship="Self.FK_Borrows_Students" FromRole="Borrows" ToRole="Students" />
-        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -210,101 +230,44 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Students" Relationship="Self.FK_Students_Classes" FromRole="Classes" ToRole="Students" />
+          <NavigationProperty Name="Students" Relationship="SmartLibModel.FK_Students_Classes" FromRole="Class" ToRole="Student" />
         </EntityType>
-        <EntityType Name="Registration">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberID" Type="Int32" Nullable="false" />
-          <Property Name="BookCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RegDate" Type="DateTime" Precision="0" />
-          <Property Name="RecMethod" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Boolean" />
-          <NavigationProperty Name="Student" Relationship="Self.FK_Registration_Students" FromRole="Registration" ToRole="Students" />
-        </EntityType>
-        <EntityType Name="Student">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ClassId" Type="Int32" />
-          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Borrow" Relationship="Self.FK_Borrows_Students" FromRole="Students" ToRole="Borrows" />
-          <NavigationProperty Name="Class" Relationship="Self.FK_Students_Classes" FromRole="Students" ToRole="Classes" />
-          <NavigationProperty Name="Registrations" Relationship="Self.FK_Registration_Students" FromRole="Students" ToRole="Registration" />
-        </EntityType>
-        <Association Name="FK_Borrows_Students">
-          <End Role="Students" Type="Self.Student" Multiplicity="1" />
-          <End Role="Borrows" Type="Self.Borrow" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Students">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Borrows">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Students_Classes">
-          <End Role="Classes" Type="Self.Class" Multiplicity="0..1" />
-          <End Role="Students" Type="Self.Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Classes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Students">
-              <PropertyRef Name="ClassId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Registration_Students">
-          <End Role="Students" Type="Self.Student" Multiplicity="1" />
-          <End Role="Registration" Type="Self.Registration" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Students">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Registration">
-              <PropertyRef Name="MemberID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SmartLibEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="Borrows" EntityType="Self.Borrow" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Classes" EntityType="Self.Class" />
-          <EntitySet Name="Registrations" EntityType="Self.Registration" />
-          <EntitySet Name="Students" EntityType="Self.Student" />
-          <AssociationSet Name="FK_Borrows_Students" Association="Self.FK_Borrows_Students">
-            <End Role="Students" EntitySet="Students" />
-            <End Role="Borrows" EntitySet="Borrows" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Students_Classes" Association="Self.FK_Students_Classes">
-            <End Role="Classes" EntitySet="Classes" />
-            <End Role="Students" EntitySet="Students" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Registration_Students" Association="Self.FK_Registration_Students">
-            <End Role="Students" EntitySet="Students" />
-            <End Role="Registration" EntitySet="Registrations" />
-          </AssociationSet>
           <EntitySet Name="Books" EntityType="SmartLibModel.Book" />
           <AssociationSet Name="FK_Books_Books" Association="SmartLibModel.FK_Books_Books">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Book" EntitySet="Books" />
           </AssociationSet>
+          <EntitySet Name="Registrations" EntityType="SmartLibModel.Registration" />
+          <AssociationSet Name="FK_Registration_Books" Association="SmartLibModel.FK_Registration_Books">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Registration" EntitySet="Registrations" />
+          </AssociationSet>
+          <EntitySet Name="Borrows" EntityType="SmartLibModel.Borrow" />
+          <AssociationSet Name="FK_Borrows_Books" Association="SmartLibModel.FK_Borrows_Books">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Borrow" EntitySet="Borrows" />
+          </AssociationSet>
+          <EntitySet Name="Students" EntityType="SmartLibModel.Student" />
+          <AssociationSet Name="FK_Borrows_Students" Association="SmartLibModel.FK_Borrows_Students">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Borrow" EntitySet="Borrows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_Classes" Association="SmartLibModel.FK_Students_Classes">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Registration_Students" Association="SmartLibModel.FK_Registration_Students">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Registration" EntitySet="Registrations" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Book">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="BookCode" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -320,6 +283,8 @@
           <Property Name="CopyNo" Type="Int32" />
           <Property Name="CoverImg" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Category" Relationship="SmartLibModel.FK_Books_Books" FromRole="Book" ToRole="Category" />
+          <NavigationProperty Name="Registrations" Relationship="SmartLibModel.FK_Registration_Books" FromRole="Book" ToRole="Registration" />
+          <NavigationProperty Name="Borrows" Relationship="SmartLibModel.FK_Borrows_Books" FromRole="Book" ToRole="Borrow" />
         </EntityType>
         <Association Name="FK_Books_Books">
           <End Type="SmartLibModel.Category" Role="Category" Multiplicity="1" />
@@ -330,6 +295,109 @@
             </Principal>
             <Dependent Role="Book">
               <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Registration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="BookCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RegDate" Type="DateTime" Precision="0" />
+          <Property Name="RecMethod" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Book" Relationship="SmartLibModel.FK_Registration_Books" FromRole="Registration" ToRole="Book" />
+          <NavigationProperty Name="Student" Relationship="SmartLibModel.FK_Registration_Students" FromRole="Registration" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_Registration_Books">
+          <End Type="SmartLibModel.Book" Role="Book" Multiplicity="1" />
+          <End Type="SmartLibModel.Registration" Role="Registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookCode" />
+            </Principal>
+            <Dependent Role="Registration">
+              <PropertyRef Name="BookCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Borrow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" />
+          <Property Name="BookCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BorrowDate" Type="DateTime" Precision="0" />
+          <Property Name="ReturnDate" Type="DateTime" Precision="0" />
+          <Property Name="Returned" Type="Boolean" />
+          <NavigationProperty Name="Book" Relationship="SmartLibModel.FK_Borrows_Books" FromRole="Borrow" ToRole="Book" />
+          <NavigationProperty Name="Student" Relationship="SmartLibModel.FK_Borrows_Students" FromRole="Borrow" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_Borrows_Books">
+          <End Type="SmartLibModel.Book" Role="Book" Multiplicity="1" />
+          <End Type="SmartLibModel.Borrow" Role="Borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookCode" />
+            </Principal>
+            <Dependent Role="Borrow">
+              <PropertyRef Name="BookCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassId" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Borrows" Relationship="SmartLibModel.FK_Borrows_Students" FromRole="Student" ToRole="Borrow" />
+          <NavigationProperty Name="Class" Relationship="SmartLibModel.FK_Students_Classes" FromRole="Student" ToRole="Class" />
+          <NavigationProperty Name="Registrations" Relationship="SmartLibModel.FK_Registration_Students" FromRole="Student" ToRole="Registration" />
+        </EntityType>
+        <Association Name="FK_Borrows_Students">
+          <End Type="SmartLibModel.Student" Role="Student" Multiplicity="0..1" />
+          <End Type="SmartLibModel.Borrow" Role="Borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Borrow">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_Classes">
+          <End Type="SmartLibModel.Class" Role="Class" Multiplicity="0..1" />
+          <End Type="SmartLibModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Registration_Students">
+          <End Type="SmartLibModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="SmartLibModel.Registration" Role="Registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Registration">
+              <PropertyRef Name="StudentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -357,18 +425,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Borrows">
-            <EntityTypeMapping TypeName="SmartLibModel.Borrow">
-              <MappingFragment StoreEntitySet="Borrows">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
-                <ScalarProperty Name="BookCode" ColumnName="BookCode" />
-                <ScalarProperty Name="BorrowDate" ColumnName="BorrowDate" />
-                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
-                <ScalarProperty Name="Returned" ColumnName="Returned" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="SmartLibModel.Category">
               <MappingFragment StoreEntitySet="Categories">
@@ -382,33 +438,6 @@
               <MappingFragment StoreEntitySet="Classes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ClassName" ColumnName="ClassName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Registrations">
-            <EntityTypeMapping TypeName="SmartLibModel.Registration">
-              <MappingFragment StoreEntitySet="Registration">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
-                <ScalarProperty Name="BookCode" ColumnName="BookCode" />
-                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
-                <ScalarProperty Name="RecMethod" ColumnName="RecMethod" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Students">
-            <EntityTypeMapping TypeName="SmartLibModel.Student">
-              <MappingFragment StoreEntitySet="Students">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -427,6 +456,45 @@
                 <ScalarProperty Name="Brief" ColumnName="Brief" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registrations">
+            <EntityTypeMapping TypeName="SmartLibModel.Registration">
+              <MappingFragment StoreEntitySet="Registration">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="RecMethod" ColumnName="RecMethod" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="BookCode" ColumnName="BookCode" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Borrows">
+            <EntityTypeMapping TypeName="SmartLibModel.Borrow">
+              <MappingFragment StoreEntitySet="Borrows">
+                <ScalarProperty Name="Returned" ColumnName="Returned" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="BorrowDate" ColumnName="BorrowDate" />
+                <ScalarProperty Name="BookCode" ColumnName="BookCode" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="SmartLibModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

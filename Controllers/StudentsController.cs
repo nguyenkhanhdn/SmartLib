@@ -10,6 +10,7 @@ using SmartLib.Models;
 
 namespace SmartLib.Controllers
 {
+    [Authorize(Users = "admin")]
     public class StudentsController : Controller
     {
         private SmartLibEntities db = new SmartLibEntities();
@@ -17,7 +18,7 @@ namespace SmartLib.Controllers
         // GET: Students
         public ActionResult Index()
         {
-            var students = db.Students.Include(s => s.Borrow).Include(s => s.Class);
+            var students = db.Students.Include(s => s.Class);
             return View(students.ToList());
         }
 

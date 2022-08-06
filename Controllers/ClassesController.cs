@@ -10,6 +10,7 @@ using SmartLib.Models;
 
 namespace SmartLib.Controllers
 {
+    [Authorize(Users = "admin")]
     public class ClassesController : Controller
     {
         private SmartLibEntities db = new SmartLibEntities();

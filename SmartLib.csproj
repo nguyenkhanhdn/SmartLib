@@ -1880,16 +1880,18 @@
     <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
-    <Content Include="Views\Borrows\Create.cshtml" />
-    <Content Include="Views\Borrows\Delete.cshtml" />
-    <Content Include="Views\Borrows\Details.cshtml" />
-    <Content Include="Views\Borrows\Edit.cshtml" />
-    <Content Include="Views\Borrows\Index.cshtml" />
+    <Content Include="Views\Borrows\NotReturn.cshtml" />
+    <Content Include="Views\Borrows\DueDate.cshtml" />
     <Content Include="Views\Registrations\Create.cshtml" />
     <Content Include="Views\Registrations\Delete.cshtml" />
     <Content Include="Views\Registrations\Details.cshtml" />
     <Content Include="Views\Registrations\Edit.cshtml" />
     <Content Include="Views\Registrations\Index.cshtml" />
+    <Content Include="Views\Borrows\Create.cshtml" />
+    <Content Include="Views\Borrows\Delete.cshtml" />
+    <Content Include="Views\Borrows\Details.cshtml" />
+    <Content Include="Views\Borrows\Edit.cshtml" />
+    <Content Include="Views\Borrows\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
