@@ -7,10 +7,10 @@
 <h2>Đăng ký mượn</h2>
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" href="/Registrations/ShowAll">Tất cả</a>
+        <a class="nav-link active" href="/Registrations/ShowAll">Tất cả</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link active" href="/Registrations/Index">Chưa xử lý</a>
+        <a class="nav-link" href="/Registrations/Index">Chưa xử lý</a>
     </li>
 </ul>
 <br />
@@ -45,8 +45,6 @@
         </tr>
     </thead>
     <tbody>
-
-
         @foreach (var item in Model)
         {
             <tr>
@@ -75,7 +73,7 @@
                     @Html.DisplayFor(modelItem => item.Student.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) | 
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id })
                     @if (!item.Status)
                     {
                         <button type="button" onclick="Xuly(@item.Id)" class="btn btn-primary">
@@ -92,12 +90,13 @@
         $(document).ready(function () {
             $('#registration').DataTable();
         });
+
         //Xử lý cho mượn sách
         function Xuly(id) {
             if (confirm("Đồng ý, xử lý cho học sinh mượn sách?") == true) {
                 var order = {
                     "id": id
-                };                
+                };
                 $.ajax({
                     url: '@Url.Action("Xuly", "Registrations")',
                     type: "GET",
@@ -117,9 +116,6 @@
                     }
                 });
             }
-        }
-        function OnSuccess(response) {
-            alert(response.d);
         }
     </script>
 }

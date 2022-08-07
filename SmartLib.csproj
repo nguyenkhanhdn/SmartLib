@@ -1803,6 +1803,7 @@
     <Content Include="assets\admin\vendor\tinymce\README.md" />
     <Content Include="assets\admin\vendor\tinymce\skins\ui\oxide-dark\fonts\tinymce-mobile.woff" />
     <Content Include="assets\admin\vendor\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
+    <Content Include="db.bak" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1815,6 +1816,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\qrcode.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1892,6 +1894,8 @@
     <Content Include="Views\Borrows\Details.cshtml" />
     <Content Include="Views\Borrows\Edit.cshtml" />
     <Content Include="Views\Borrows\Index.cshtml" />
+    <Content Include="Views\Registrations\ShowAll.cshtml" />
+    <Content Include="Views\Home\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

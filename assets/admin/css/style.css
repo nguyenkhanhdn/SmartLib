@@ -8,6 +8,14 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
+.dataTables_wrapper {
+    font-size: 14px !important;
+}
+
+.table td, .display td, .table th, .display th {
+    font-size: 14px !important;
+}
 :root {
   scroll-behavior: smooth;
 }

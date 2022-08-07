@@ -15,12 +15,48 @@ namespace SmartLib.Controllers
     {
         private SmartLibEntities db = new SmartLibEntities();
 
+        [HttpGet]
+        public ActionResult Xuly(int id)
+        {
+            //Nếu id = 0 thì yêu cầu chọn lại
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //Cập nhật thuộc tính status = true
+            Registration reg = db.Registrations.Find(id);
+            reg.Status = true;
+            db.Entry(reg).State = EntityState.Modified;
+
+            //Thêm 1 dòng vào bảng Borrows (mượn trả)
+            Borrow borrow = new Borrow();
+            borrow.BookCode = reg.BookCode;
+            borrow.StudentId = reg.StudentId;
+            borrow.BorrowDate = DateTime.Today;
+            borrow.ReturnDate = null;
+            borrow.Returned = false;
+
+            db.Borrows.Add(borrow);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         // GET: Registrations
         public ActionResult Index()
         {
-            var registrations = db.Registrations.Include(r => r.Book).Include(r => r.Student);
+            var registrations = db.Registrations.Include(r => r.Book).Include(r => r.Student).Where(r => r.Status == false);
+
             return View(registrations.ToList());
         }
+
+        public ActionResult ShowAll()
+        {
+            var registrations = db.Registrations.Include(r => r.Book).Include(r => r.Student);
+
+            return View(registrations.ToList());
+        }
+
 
         // GET: Registrations/Details/5
         public ActionResult Details(int? id)
@@ -50,10 +86,11 @@ namespace SmartLib.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,StudentId,BookCode,RegDate,RecMethod,Address,Phone,Note,Status")] Registration registration)
+        public ActionResult Create([Bind(Include = "Id,StudentId,BookCode,RegDate,RecMethod,Address,Phone,Note")] Registration registration)
         {
             if (ModelState.IsValid)
             {
+                registration.Status = false;
                 db.Registrations.Add(registration);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -21,6 +21,24 @@ namespace SmartLib.Controllers
             return View(borrows.ToList());
         }
 
+        //GET: NotReturn
+        public ActionResult NotReturn()
+        {
+            var borrows = db.Borrows.ToList();
+            var notReturnedBooks = borrows.Where(d => d.ReturnDate == null);
+            return View(notReturnedBooks);
+        }
+
+        //GET: DueDate
+        public ActionResult DueDate()
+        {
+            var borrows = db.Borrows.ToList();
+
+            var duebooks = borrows.Where((b => b.BorrowDate.AddDays(14) < DateTime.Today));
+            duebooks = duebooks.Where(d => d.ReturnDate == null);
+            return View(duebooks);
+        }
+
         // GET: Borrows/Details/5
         public ActionResult Details(int? id)
         {

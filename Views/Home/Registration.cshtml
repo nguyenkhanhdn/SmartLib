@@ -15,12 +15,13 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.MemberID, "MemberID", htmlAttributes: new { @class = "control-label col-md-2" })
+        @*@Html.LabelFor(model => model.StudentId, "StudentId", htmlAttributes: new { @class = "control-label col-md-2" })*@
+        <label class="control-label col-md-2">Học sinh</label>
         <div class="col-md-10">
             @*@Html.DropDownList("MemberID", null, htmlAttributes: new { @class = "form-control" })*@
             <input name="StudentId" type="hidden" value="@ViewBag.StudentId" class="form-control" readonly />
             <input name="Fullname" type="text" value="@ViewBag.FullName" class="form-control" readonly />
-            @Html.ValidationMessageFor(model => model.MemberID, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -36,6 +37,8 @@
         @Html.LabelFor(model => model.RegDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.RegDate, new { htmlAttributes = new { @class = "form-control" } })
+
+            @*<input type="date" value="" name="RegDate" id="RegDate" class="control-label" />*@
             @Html.ValidationMessageFor(model => model.RegDate, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -142,3 +145,11 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            document.getElementById("RegDate").valueAsDate = new Date();
+        });
+    </script>
+}

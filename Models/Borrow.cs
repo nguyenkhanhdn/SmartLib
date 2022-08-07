@@ -11,34 +11,26 @@ namespace SmartLib.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Borrow
     {
         public int Id { get; set; }
-        [Display(Name = "Thành viên")]
-        public int MemberID { get; set; }
+        [Display(Name = "Học sinh")]
+        public int StudentId { get; set; }
         [Display(Name = "Mã sách")]
         public string BookCode { get; set; }
-        [Display(Name = "Ngày đăng ký")]
+        [Display(Name = "Ngày mượn")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}")]
+        public System.DateTime BorrowDate { get; set; }
+        [Display(Name = "Ngày trả")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        [DefaultValue("getdate()")]
-        public Nullable<System.DateTime> RegDate { get; set; }
-        [Display(Name = "Hình thức nhận sách")]
-        public string RecMethod { get; set; }
-        [Display(Name = "Địa chỉ")]
-        public string Address { get; set; }
-        [Display(Name = "Số điện thoại")]
-        public string Phone { get; set; }
-        [Display(Name = "Ghi chú")]
-        [DataType(DataType.MultilineText)]
-        public string Note { get; set; }
-        [Display(Name = "Trạng thái")]
-        public Nullable<bool> Status { get; set; }
-
-
+        public Nullable<System.DateTime> ReturnDate { get; set; }
+        [Display(Name = "Đã trả")]
+        public Nullable<bool> Returned { get; set; }
+    
         public virtual Book Book { get; set; }
         public virtual Student Student { get; set; }
     }

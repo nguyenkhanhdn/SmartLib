@@ -1,4 +1,4 @@
-a/**
+a /**
 * Template Name: Mentor - v4.7.0
 * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
 * Author: BootstrapMade.com
@@ -8,6 +8,18 @@ a/**
     display:inline-block !important;
 }
 */
+a.mydropdown:hover{
+    color:#28C0EB !important;
+} 
+
+.dataTables_wrapper {
+    font-size: 14px !important;
+}
+
+.table td, .display td, .table th, .display th {
+    font-size: 14px !important;
+}
+
 .searchBox {
     width: 300px;
     margin-top: 2px;

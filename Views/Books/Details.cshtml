@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutSecurity.cshtml";
 }
 
-<h2>CHI TIẾT SÁCH</h2>
+<h4>CHI TIẾT SÁCH</h4>
 
 <div>
     <hr />
@@ -62,7 +62,5 @@
     </table>   
 </div>
 <p>
-    <a href="//Home/AddToCart/@Model.Id" class="btn btn-success">Mượn sách</a>
-     |
-    @Html.ActionLink("Back to List", "Index")
+    <a href="/Home/AddToCart/@Model.Id-@Model.Title" class="btn btn-success">Mượn sách</a> | @Html.ActionLink("Back to List", "Index")
 </p>

@@ -30,7 +30,7 @@ namespace SmartLib.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
+            Book book = db.Books.Where(b=>b.Id==id).FirstOrDefault();
 
             if (book == null)
             {
@@ -54,10 +54,14 @@ namespace SmartLib.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,CategoryId,Brief,Publisher,PubYear,Author,BookCode,QtyInStock,ViewNo,BorrowNo,CopyNo,CoverImg")] Book book)
+        public ActionResult Create([Bind(Include = "Id,Title,CategoryId,Brief,Publisher,PubYear,Author,BookCode,CopyNo,CoverImg")] Book book)
         {
             if (ModelState.IsValid)
             {
+                book.ViewNo = 0;
+                book.QtyInStock = book.CopyNo;
+                book.BorrowNo = 0;
+
                 db.Books.Add(book);
                 db.SaveChanges();
                 return RedirectToAction("Index");

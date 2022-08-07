@@ -15,6 +15,7 @@ namespace SmartLib.Models
 
     public partial class Student
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Student()
         {
             this.Borrows = new HashSet<Borrow>();
@@ -22,19 +23,26 @@ namespace SmartLib.Models
         }
     
         public int Id { get; set; }
-        [Display(Name = "Tên học sinh")]
+        [Display(Name = "Tên học sinh") ]
+        [Required(ErrorMessage = "Tên học sinh không được để trống.")]
         public string Name { get; set; }
-        [Display(Name = "Tên lớp")]
-        public int ClassId { get; set; }
+        [Display(Name = "Lớp")]
+        [Required(ErrorMessage = "Lớp không được để trống.")]
+        public Nullable<int> ClassId { get; set; }
         [Display(Name = "Địa chỉ")]
+        [Required(ErrorMessage = "Địa chỉ học sinh không được để trống.")]
         public string Address { get; set; }
         [Display(Name = "Điện thoại")]
+        [Required(ErrorMessage = "Điện thoại học sinh không được để trống.")]
         public string Phone { get; set; }
         [Display(Name = "Email")]
+        [Required(ErrorMessage = "Email không được để trống.")]
         public string Email { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Borrow> Borrows { get; set; }
         public virtual Class Class { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Registration> Registrations { get; set; }
     }
 }

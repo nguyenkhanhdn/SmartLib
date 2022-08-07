@@ -17,9 +17,19 @@ namespace SmartLib.Controllers
         public ActionResult Index()
         {
             var books = db.Books.Include(b => b.Category);
-            var queries = books.OrderBy(r => Guid.NewGuid()).Take(3);
+            var queries = books.OrderBy(r => Guid.NewGuid()).Take(5);
             return View(queries.ToList());
         }
+        public ActionResult History()
+        {
+            //int studentId = 0;
+            var email = GetEmailFromUserName(User.Identity.Name);
+
+            var borrows = db.Borrows.Include(b => b.Book).Include(b => b.Student).Where(b=>b.Student.Email == email);
+            return View(borrows.ToList());
+            
+        }
+
         [HttpPost]
         public ActionResult SearchBook(string bookTitle)
         {
@@ -84,18 +94,26 @@ namespace SmartLib.Controllers
         [HttpGet]
         public ActionResult Registration()
         {
-            var email = GetEmailFromUserName(User.Identity.Name);
-
-            BookCart cart = Session["cart"] as BookCart;//Sách trong session (giỏ)
-            if (cart == null)
+            try
             {
-                RedirectToAction("Index");
+                var email = GetEmailFromUserName(User.Identity.Name);
+
+                BookCart cart = Session["cart"] as BookCart;//Sách trong session (giỏ)
+                if (cart == null)
+                {
+                    RedirectToAction("Index");
+                }
+                var student = db.Students.Where(s => s.Email == email).FirstOrDefault();
+                ViewBag.StudentId = student.Id;
+                ViewBag.Address = student.Address;
+                ViewBag.Phone = student.Phone;
+                ViewBag.Fullname = student.Name;
             }
-            var student = db.Students.Where(s => s.Email == email).FirstOrDefault();
-            ViewBag.StudentId = student.Id;
-            ViewBag.Address = student.Address;
-            ViewBag.Phone = student.Phone;
-            ViewBag.Fullname = student.Name;
+            catch(Exception ex)
+            {
+
+            }
+            
             return View();
         }
 
