@@ -8,9 +8,6 @@ a /**
     display:inline-block !important;
 }
 */
-a.mydropdown:hover{
-    color:#28C0EB !important;
-} 
 
 .dataTables_wrapper {
     font-size: 14px !important;
@@ -450,7 +447,7 @@ h1, h2, h3, h4, h5, h6 {
 #hero {
     width: 100%;
     height: 80vh;
-    background: url("../img/hero-bg.jpg") top center;
+    background: url("/assets/img/library.jpeg") top center;
     background-size: cover;
     position: relative;
 }
@@ -481,7 +478,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     line-height: 56px;
     color: #fff;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #hero h2 {
