@@ -181,6 +181,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\BookCart.cs" />
     <Compile Include="Controllers\RegistrationsController.cs" />
+    <Compile Include="Controllers\SendEmail.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1559,7 +1560,9 @@
     <Content Include="ckfinder\userfiles\images\amthuc.jpg" />
     <Content Include="ckfinder\userfiles\images\amthuc02.jpg" />
     <Content Include="ckfinder\userfiles\images\avatar5.png" />
+    <Content Include="ckfinder\userfiles\images\book01.png" />
     <Content Include="ckfinder\userfiles\images\book1.jpg" />
+    <Content Include="ckfinder\userfiles\images\book1.png" />
     <Content Include="ckfinder\userfiles\images\book2.jpg" />
     <Content Include="ckfinder\userfiles\images\book3.jpg" />
     <Content Include="ckfinder\userfiles\images\book4.jpg" />
@@ -1818,6 +1821,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\qrcode.js" />
+    <Content Include="Scripts\qrcode.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

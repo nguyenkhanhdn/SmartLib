@@ -17,7 +17,7 @@ namespace SmartLib.Controllers
         public ActionResult Index()
         {
             var books = db.Books.Include(b => b.Category);
-            var queries = books.OrderBy(r => Guid.NewGuid()).Take(5);
+            var queries = books.OrderBy(r => Guid.NewGuid()).Take(6);
             return View(queries.ToList());
         }
         public ActionResult History()
@@ -27,7 +27,6 @@ namespace SmartLib.Controllers
 
             var borrows = db.Borrows.Include(b => b.Book).Include(b => b.Student).Where(b=>b.Student.Email == email);
             return View(borrows.ToList());
-            
         }
 
         [HttpPost]
@@ -47,19 +46,26 @@ namespace SmartLib.Controllers
             return View();
         }
 
-        public ActionResult AddToCart(string id, string title, int quantity = 1)
+        public ActionResult AddToCart(int id, string title, int quantity = 1)
         {
-            string[] s = id.Split('-');
+            //string[] s = id.Split('-');
+            //string bookId = s[0];
+            //string bookTitle = s[1];
+            //
+            string bookTitle = "None";
+            var book = db.Books.Where(b => b.Id == id).FirstOrDefault(); //Tìm sách có Id = id được truyền qua, lấy dòng đầu (và là duy nhất)
 
-            string bookId = s[0];
-            string bookTitle = s[1];
+            if (book != null)
+            {                
+                bookTitle = book.Title;
+            }
             BookCart cart = (BookCart)Session["cart"];//Lấy giỏ sách từ session
             //Nếu cart rỗng -> mới vào thư viện, chưa mượn sách
             if (cart == null)
             {
-                cart = new BookCart();//Giỏ trống
+                cart = new BookCart();//Lấy giỏ trống mới để vào thư viện đựng sách
             }
-            cart.AddItem(bookId, bookTitle, quantity);
+            cart.AddItem(id.ToString(), bookTitle, quantity);
             //Save cart
             Session["cart"] = cart;//Lưu vào session
             return RedirectToAction("YourCart");

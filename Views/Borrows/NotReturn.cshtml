@@ -21,9 +21,9 @@
 <table class="table display table-responsive" id="borrows">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.StudentId)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.BookCode)
             </th>
@@ -46,9 +46,9 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.StudentId)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.BookCode)
                 </td>

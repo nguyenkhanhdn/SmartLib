@@ -7,6 +7,12 @@
 
 
 <h4>QUẢN LÝ MƯỢN - TRẢ SÁCH</h4>
+<p>
+
+    <button onclick="remind()" class="btn btn-warning" id="remind">Nhắc nhỡ</button>
+    <div id="loader" class="lds-dual-ring hidden overlay"></div>
+</p>
+
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -23,9 +29,9 @@
 <table class="table display table-responsive" id="borrows">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.StudentId)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.BookCode)
             </th>
@@ -48,9 +54,9 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.StudentId)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.BookCode)
                 </td>
@@ -78,5 +84,28 @@
         $(document).ready(function () {
             $("#borrows").DataTable();
         });
+
+        function remind() {
+            $.ajax({
+                url: '/Borrows/Remind',
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                beforeSend: function () {
+                    // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
+                    $('#loader').removeClass('hidden');
+                },
+                complete: function () { // Set our complete callback, adding the .hidden class and hiding the spinner.
+                    $('#loader').addClass('hidden');
+                },
+                success: function (results) {
+                    $('#loader').addClass('hidden');
+                    alert("Gửi thông báo: thành công.");
+                },
+                error: function () {
+                    alert('Gửi thông báo: có lỗi xảy ra.');
+                }
+            });
+        }
     </script>
 }

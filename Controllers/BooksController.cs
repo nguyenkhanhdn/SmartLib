@@ -56,17 +56,24 @@ namespace SmartLib.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,CategoryId,Brief,Publisher,PubYear,Author,BookCode,CopyNo,CoverImg")] Book book)
         {
-            if (ModelState.IsValid)
+            try
             {
-                book.ViewNo = 0;
-                book.QtyInStock = book.CopyNo;
-                book.BorrowNo = 0;
+                if (ModelState.IsValid)
+                {
+                    book.ViewNo = 0;
+                    book.QtyInStock = book.CopyNo;
+                    book.BorrowNo = 0;
 
-                db.Books.Add(book);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    db.Books.Add(book);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            catch (Exception ex)
+            {
 
+            }
+            
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name", book.CategoryId);
             return View(book);
         }
@@ -78,7 +85,8 @@ namespace SmartLib.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
+            //Book book = db.Books.Find(id);
+            Book book = db.Books.Where(b => b.Id == id).FirstOrDefault();
             if (book == null)
             {
                 return HttpNotFound();
@@ -111,7 +119,13 @@ namespace SmartLib.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
+            //Book book = db.Books.Find(id); //id Khóa chính
+            Book book = db.Books.Where(b => b.Id == id).FirstOrDefault();
+
+            //Book book = db.Books.Where(b => b.Id == id || b.QtyInStock > 0).FirstOrDefault();
+            //Book book = db.Books.Where(b => b.Id == id && b.QtyInStock > 0).FirstOrDefault();
+            //Book book = db.Books.Where(b => b.Title == "Toán").FirstOrDefault();
+            //Book book = db.Books.Where(b => b.Title.Contains("Toán")).FirstOrDefault();
             if (book == null)
             {
                 return HttpNotFound();

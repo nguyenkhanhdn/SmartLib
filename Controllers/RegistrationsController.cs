@@ -28,6 +28,22 @@ namespace SmartLib.Controllers
             reg.Status = true;
             db.Entry(reg).State = EntityState.Modified;
 
+            //cập nhật số lượng mượn +1, số lượng sách trong kho -1
+            Book book = db.Books.Find(reg.BookCode);
+            if (book != null)
+            {
+                book.BorrowNo = book.BorrowNo + 1;//Tăng số lượt mượn
+                if (book.QtyInStock == 0)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                else
+                {
+                    book.QtyInStock = book.QtyInStock - 1; //giảm số lượng sách trong thư viện
+                }                
+            }
+            db.Entry(book).State = EntityState.Modified;            
+
             //Thêm 1 dòng vào bảng Borrows (mượn trả)
             Borrow borrow = new Borrow();
             borrow.BookCode = reg.BookCode;

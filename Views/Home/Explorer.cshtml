@@ -4,7 +4,6 @@
     ViewBag.Title = "Explorer";
     Layout = "~/Views/Shared/_LayoutSecurity.cshtml";
 }
-
 <h4>DANH MỤC SÁCH</h4>
 <hr style="width:100%;"/>
 <table class="display table-responsive" id="books">
@@ -44,7 +43,7 @@
                 @Html.DisplayNameFor(model => model.CoverImg)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category.Name)
+                QRCode
             </th>
             <th></th>
         </tr>
@@ -97,12 +96,36 @@
                     <img src="@item.CoverImg" alt="Ảnh bìa" style="width:80px;height:auto;" />
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
+                    @{ 
+                        var qrcodeItem = "";
+                        qrcodeItem = "div" + item.Id.ToString();
+                        <div id="@qrcodeItem"></div>
+                    }
+                <script>
+                    new QRCode(document.getElementById('@qrcodeItem'), {
+                        text: "/Home/AddToCart/@item.Id",
+                        width: 90,
+                        height: 100,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                </script>
                 </td>
                 <td>
-                    <a href="~/Books/Details/@item.Id">Chi tiết</a> | 
-                    @*@Html.ActionLink("Chi tiết", "/Admin/Books/Details", new { id = item.Id })*@ 
-                    @Html.ActionLink("Mượn sách", "AddToCart", new { @Id = item.Id + "-" + item.Title })
+                    <a href="/Books/Details/@item.Id">Chi tiết</a> |
+                    @*@Html.ActionLink("Chi tiết", "/Admin/Books/Details", new { id = item.Id })*@
+
+                    @if (item.QtyInStock == 0)
+                    {
+                        <span class="isDisabled">
+                            @Html.ActionLink("Mượn sách", "AddToCart", new { @Id = item.Id })
+                        </span>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Mượn sách", "AddToCart", new { @Id = item.Id })
+                    }
                 </td>
             </tr>
         }
