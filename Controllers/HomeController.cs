@@ -20,6 +20,17 @@ namespace SmartLib.Controllers
             var queries = books.OrderBy(r => Guid.NewGuid()).Take(6);
             return View(queries.ToList());
         }
+        [HttpGet]
+        public ActionResult AdvancedSearch()
+        {
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult AdvancedSearch(string category, string book = "none")
+        {
+            return View();
+        }
         public ActionResult History()
         {
             //int studentId = 0;

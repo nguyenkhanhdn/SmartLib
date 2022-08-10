@@ -5,14 +5,10 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-
 <h4>QUẢN LÝ MƯỢN - TRẢ SÁCH</h4>
 <p>
-
     <button onclick="remind()" class="btn btn-warning" id="remind">Nhắc nhỡ</button>
-    
 </p>
-
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -84,7 +80,6 @@
         $(document).ready(function () {
             $("#borrows").DataTable();
         });
-
         function remind() {
             $.ajax({
                 url: '/Borrows/Remind',

@@ -1,0 +1,18 @@
+﻿create trigger GiamQtyInStock
+on Borrows for insert
+as
+	declare @bookcode varchar(50)
+	select @bookcode = bookcode from inserted
+
+	update books set QtyInStock = QtyInStock - 1
+	where BookCode = @bookcode
+
+GO
+create trigger UpdateQtyInStock
+on Borrows for update
+as
+	declare @bookcode varchar(50)
+	select @bookcode = bookcode from inserted
+
+	update books set QtyInStock = QtyInStock + 1
+	where BookCode = @bookcode

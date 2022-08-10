@@ -55,13 +55,18 @@
                             <li><a class="mydropdown" href="/Home/History">Sách đã mượn</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="dropdown">
                         <div class="searchBox">
                             <form action="/Home/SearchBook" method="post">
                                 <input type="text" name="bookTitle" placeholder="Tên sách cần tìm" />
                                 <input type="submit" value="Tìm kiếm" />
-                            </form>
+
+                            </form>                            
                         </div>
+                        <ul>
+                            <li><a class="mydropdown" href="/Home/SearchBook">Tìm kiếm sách</a></li>
+                            <li><a class="mydropdown" href="/Home/advancedSearch">Tìm kiếm nâng cao</a></li>
+                        </ul>
                     </li>
                     @if (Request.IsAuthenticated)
                     {

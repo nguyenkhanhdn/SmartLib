@@ -29,7 +29,7 @@ namespace SmartLib.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> ReturnDate { get; set; }
         [Display(Name = "Đã trả")]
-        public Nullable<bool> Returned { get; set; }
+        public bool Returned { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual Student Student { get; set; }
