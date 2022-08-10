@@ -10,7 +10,7 @@
 <p>
 
     <button onclick="remind()" class="btn btn-warning" id="remind">Nhắc nhỡ</button>
-    <div id="loader" class="lds-dual-ring hidden overlay"></div>
+    
 </p>
 
 
@@ -93,17 +93,17 @@
                 cache: false,
                 beforeSend: function () {
                     // Before we send the request, remove the .hidden class from the spinner and default to inline-block.
-                    $('#loader').removeClass('hidden');
+                    $('#spincontainer').removeClass('hiddenspin');
                 },
                 complete: function () { // Set our complete callback, adding the .hidden class and hiding the spinner.
-                    $('#loader').addClass('hidden');
+                    $('#spincontainer').addClass('hiddenspin');
                 },
                 success: function (results) {
-                    $('#loader').addClass('hidden');
-                    alert("Gửi thông báo: thành công.");
+                    $('#spincontainer').addClass('hiddenspin');
+                    alert("Gửi thông báo thành công.");
                 },
                 error: function () {
-                    alert('Gửi thông báo: có lỗi xảy ra.');
+                    alert('Gửi thông báo có lỗi xảy ra.');
                 }
             });
         }

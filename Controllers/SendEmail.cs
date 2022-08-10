@@ -20,7 +20,7 @@ namespace SmartLib.Controllers
                 var mail = new MailMessage();
                 mail.From = new MailAddress("letuantudanang@gmail.com");
                 mail.To.Add(to);
-                mail.Subject = "Nhắc nhỡ: học sinh mượn sách quá hạn.";
+                mail.Subject = "Nhắc nhở: học sinh mượn sách quá hạn.";
                 mail.IsBodyHtml = true;
                 string htmlBody;
                 htmlBody = msg;
