@@ -28,9 +28,7 @@
         <div class="form-group row rrr">
             <label for="Categories" class="col-md-3 col-form-label">Loại sách</label>
             <div class="col-md-9">
-
-                @Html.DropDownList("Category", new SelectList(ViewBag.Categories,"CategoryId","Name"),"-- Loại sách --",new {@class = "form-control" })
-                
+                @Html.DropDownList("Category", new SelectList(ViewBag.Categories,"CategoryId","Name"),"-- Loại sách --",new {@class = "form-control" })                
             </div>
         </div>
         <br />

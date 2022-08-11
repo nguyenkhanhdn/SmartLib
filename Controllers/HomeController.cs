@@ -22,9 +22,9 @@ namespace SmartLib.Controllers
             return View(queries.ToList());
         }
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult AdvancedSearch()
         {
-
             ViewBag.Categories = db.Categories.ToList();
             return View();
         }
@@ -32,17 +32,11 @@ namespace SmartLib.Controllers
         [AllowAnonymous]
         public ActionResult AdvancedSearch(string bookTitle, string author, string category)
         {
-            var x = bookTitle;
-            var y = author;
-            var z = category;
-            List<Book> books;
+            var books = db.Books.ToList();
+
             if (bookTitle.Length > 0)
             {
-                books = db.Books.Where(b => b.Title.Contains(bookTitle)).ToList();
-            }
-            else
-            {
-                books = db.Books.ToList();
+                books = books.Where(b => b.Title.Contains(bookTitle)).ToList();
             }
             if (author.Length > 0)
             {
