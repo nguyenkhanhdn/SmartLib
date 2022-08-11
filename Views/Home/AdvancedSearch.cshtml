@@ -3,18 +3,43 @@
     Layout = "~/Views/Shared/_LayoutSecurity.cshtml";
 }
 
+<style>
+    .rrr{
+        margin-bottom:10px;margin-top:10px;
+    }
+</style>
+
 <h2>Tìm kiếm nâng cao</h2>
 <hr/>
-<form>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-   
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div class="col-md-12">
+    <form action="/home/AdvancedSearch" method="post">
+        <div class="form-group row rrr">
+            <label for="bookTitle" class="col-md-3 col-form-label">Tìm theo tên</label>
+            <div class="col-md-9">
+                <input type="text" name="bookTitle" class="form-control" id="bookTitle" placeholder="Tên sách">
+            </div>
+        </div>
+        <div class="form-group row rrr">
+            <label for="author" class="col-md-3 col-form-label">Tác giả</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" id="author" name="author" placeholder="Tác giả">
+            </div>
+        </div>
+        <div class="form-group row rrr">
+            <label for="Categories" class="col-md-3 col-form-label">Loại sách</label>
+            <div class="col-md-9">
+
+                @Html.DropDownList("Category", new SelectList(ViewBag.Categories,"CategoryId","Name"),"-- Loại sách --",new {@class = "form-control" })
+                
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-md-3">                
+            </div>
+            <div class="col-md-9">
+                <button type="submit" class="btn btn-primary mb-3">Tìm kiếm</button>
+            </div>
+        </div>
+    </form>
+</div>

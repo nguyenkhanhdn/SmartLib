@@ -74,7 +74,9 @@ namespace SmartLib.Controllers
 
             }
             
+            
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name", book.CategoryId);
+            
             return View(book);
         }
 

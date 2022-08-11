@@ -1,5 +1,6 @@
 ﻿using SmartLib.Models;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -23,14 +24,39 @@ namespace SmartLib.Controllers
         [HttpGet]
         public ActionResult AdvancedSearch()
         {
+
+            ViewBag.Categories = db.Categories.ToList();
             return View();
         }
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult AdvancedSearch(string category, string book = "none")
+        public ActionResult AdvancedSearch(string bookTitle, string author, string category)
         {
-            return View();
+            var x = bookTitle;
+            var y = author;
+            var z = category;
+            List<Book> books;
+            if (bookTitle.Length > 0)
+            {
+                books = db.Books.Where(b => b.Title.Contains(bookTitle)).ToList();
+            }
+            else
+            {
+                books = db.Books.ToList();
+            }
+            if (author.Length > 0)
+            {
+                books = books.Where(b => b.Author.Contains(author)).ToList();
+            }
+            if (category.Length > 0)
+            {
+                var catid = int.Parse(category);
+                books = books.Where(b => b.CategoryId == catid).ToList();
+            }
+
+            return View("Explorer",books);
         }
+        [Authorize]
         public ActionResult History()
         {
             //int studentId = 0;
