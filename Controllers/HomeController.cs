@@ -135,6 +135,7 @@ namespace SmartLib.Controllers
             return email;
         }
         [HttpGet]
+        [Authorize]
         public ActionResult Registration()
         {
             try
