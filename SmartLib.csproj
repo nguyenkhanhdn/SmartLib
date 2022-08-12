@@ -501,6 +501,7 @@
     <Content Include="assets\img\course-details-tab-4.png" />
     <Content Include="assets\img\course-details-tab-5.png" />
     <Content Include="assets\img\course-details.jpg" />
+    <Content Include="assets\img\cybersecurity.jpg" />
     <Content Include="assets\img\events-1.jpg" />
     <Content Include="assets\img\events-2.jpg" />
     <Content Include="assets\img\favicon.png" />
@@ -534,7 +535,9 @@
     <Content Include="assets\img\trainers\trainer-1.jpg" />
     <Content Include="assets\img\trainers\trainer-2.jpg" />
     <Content Include="assets\img\trainers\trainer-3.jpg" />
+    <Content Include="assets\img\voice-recognition.png" />
     <Content Include="assets\js\main.js" />
+    <Content Include="assets\js\speechrecognize.js" />
     <Content Include="assets\vendor\animate.css\animate.compat.css" />
     <Content Include="assets\vendor\animate.css\animate.css" />
     <Content Include="assets\vendor\animate.css\animate.min.css" />
@@ -1903,6 +1906,7 @@
     <Content Include="Views\Registrations\ShowAll.cshtml" />
     <Content Include="Views\Home\History.cshtml" />
     <Content Include="Views\Home\AdvancedSearch.cshtml" />
+    <Content Include="Views\Home\SearchResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

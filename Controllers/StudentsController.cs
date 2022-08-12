@@ -38,6 +38,7 @@ namespace SmartLib.Controllers
         }
 
         // GET: Students/Create
+        [AllowAnonymous]
         public ActionResult Create()
         {
             ViewBag.Id = new SelectList(db.Borrows, "Id", "BookCode");
@@ -50,6 +51,7 @@ namespace SmartLib.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult Create([Bind(Include = "Id,Name,ClassId,Address,Phone,Email")] Student student)
         {
             if (ModelState.IsValid)

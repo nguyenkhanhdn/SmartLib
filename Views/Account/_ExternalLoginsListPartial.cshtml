@@ -1,27 +1,6 @@
 ﻿@model SmartLib.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
-<h4>Tài khoản Gmail, Facebook</h4>
+<h4>Security</h4>
 <hr />
-@{
-    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-    if (loginProviders.Count() == 0) {
-        <div>
-            <p>
-                Không có tài khoản Gmail hoặc Facebook nào được tích hợp. <br/> <br/>
-            </p>
-        </div>
-    }
-    else {
-        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
-            @Html.AntiForgeryToken()
-            <div id="socialLoginList">
-                <p>
-                    @foreach (AuthenticationDescription p in loginProviders) {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
-                    }
-                </p>
-            </div>
-        }
-    }
-}
+<img src="~/assets/img/cybersecurity.jpg" class="rounded-circle" />

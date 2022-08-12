@@ -49,8 +49,9 @@
 
 
                     <li class="dropdown">
-                        <a href="#"><span>Sách của bạn</span> <i class="bi bi-chevron-down"></i></a>
+                        <a href="#"><span><img src="~/assets/img/voice-recognition.png" />Danh mục</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
+                            <li><a class="mydropdown" href="/Home/Explorer">Sách</a></li>
                             <li><a class="mydropdown" href="/Home/yourcart">Đăng ký mượn</a></li>
                             <li><a class="mydropdown" href="/Home/History">Sách đã mượn</a></li>
                         </ul>
@@ -64,7 +65,7 @@
                             </form>
                         </div>
                         <ul>
-                            <li><a class="mydropdown" href="/Home/Explorer">Tìm kiếm sách</a></li>
+
                             <li><a class="mydropdown" href="/home/AdvancedSearch">Tìm kiếm nâng cao</a></li>
                         </ul>
                     </li>
@@ -80,8 +81,10 @@
                     {
                         <li>@Html.ActionLink("Đăng ký", "Register", "Account")</li>
                         <li>@Html.ActionLink("Đăng nhập", "Login", "Account")</li>
+
                     }
 
+                   
                 </ul>
 
                 <i class="bi bi-list mobile-nav-toggle"></i>
@@ -200,7 +203,7 @@
     <script src="~/assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="~/assets/vendor/php-email-form/validate.js"></script>
     @*<script src="~/Scripts/qrcode.js"></script>*@
-
+    <script src="~/assets/js/speechrecognize.js"></script>
     <!-- Template Main JS File -->
     <script src="~/assets/js/main.js"></script>
 

@@ -1,0 +1,143 @@
+﻿@model IEnumerable<SmartLib.Models.Book>
+
+@{
+    ViewBag.Title = "Explorer";
+    Layout = "~/Views/Shared/_LayoutSecurity.cshtml";
+}
+<h4>KẾT QUẢ TÌM KIẾM</h4>
+<hr style="width:100%;" />
+<table class="display table-responsive" id="books">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brief)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Publisher)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PubYear)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.BookCode)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.QtyInStock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViewNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BorrowNo)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.CopyNo)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.CoverImg)
+            </th>
+            <th>
+                QRCode
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @{
+                        if (item.Brief.Length > 200)
+                        {
+                            @Html.Raw(item.Brief.Substring(0, 200));
+                        }
+                        else
+                        {
+                            @Html.Raw(item.Brief.Substring(0, item.Brief.Length));
+                        }
+                    }
+
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Publisher)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PubYear)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.BookCode)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.QtyInStock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ViewNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BorrowNo)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.CopyNo)
+                    </td>*@
+                <td>
+                    <img src="@item.CoverImg" alt="Ảnh bìa" style="width:80px;height:auto;" />
+                </td>
+                <td>
+                    @{
+                        var qrcodeItem = "";
+                        qrcodeItem = "div" + item.Id.ToString();
+                        <div id="@qrcodeItem"></div>
+                    }
+                    <script>
+                    new QRCode(document.getElementById('@qrcodeItem'), {
+                        text: "/Home/AddToCart/@item.Id",
+                        width: 90,
+                        height: 100,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                    </script>
+                </td>
+                <td>
+                    <a href="/Books/Details/@item.Id">Chi tiết</a> |
+                    @*@Html.ActionLink("Chi tiết", "/Admin/Books/Details", new { id = item.Id })*@
+
+                    @if (item.QtyInStock == 0)
+                    {
+                        <span class="isDisabled">
+                            @Html.ActionLink("Mượn sách", "AddToCart", new { @Id = item.Id })
+                        </span>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Mượn sách", "AddToCart", new { @Id = item.Id })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#books').DataTable({
+                    "paging": true,
+                    "ordering": true,
+                    "searching": false });
+        });
+    </script>
+} 

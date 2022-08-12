@@ -47,8 +47,7 @@ namespace SmartLib.Controllers
                 var catid = int.Parse(category);
                 books = books.Where(b => b.CategoryId == catid).ToList();
             }
-
-            return View("Explorer",books);
+            return View("SearchResult",books);
         }
         [Authorize]
         public ActionResult History()
