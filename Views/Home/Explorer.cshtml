@@ -102,8 +102,9 @@
                         <div id="@qrcodeItem"></div>
                     }
                 <script>
+                    var host = window.location.host;
                     new QRCode(document.getElementById('@qrcodeItem'), {
-                        text: "/Home/AddToCart/@item.Id",
+                        text: host + "/Home/AddToCart/@item.Id",
                         width: 90,
                         height: 100,
                         colorDark: "#000000",

@@ -1,6 +1,4 @@
-﻿var message = document.querySelector('#message');
-
-var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+﻿var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 
 var grammar = '#JSGF V1.0;'
@@ -17,6 +15,7 @@ recognition.start();
 recognition.onresult = function (event) {
     var lastResult = event.results.length - 1;
     var content = event.results[lastResult][0].transcript;
+
     //message.textContent = 'Voice Input: ' + content + '.';
     if (content.includes("tìm kiếm")) {
         window.location.href = "/home/Explorer";
@@ -29,7 +28,7 @@ recognition.onresult = function (event) {
     }
     if (content.includes("tìm kiếm sách")) {
         window.location.href = "/home/Explorer";
-    }
+    }    
 };
 
 recognition.onspeechend = function () {
@@ -37,9 +36,6 @@ recognition.onspeechend = function () {
 };
 
 recognition.onerror = function (event) {
-    message.textContent = 'Error occurred in recognition: ' + event.error;
+    var msg = 'Error occurred in recognition: ' + event.error;
+    console.log(msg);
 }
-
-document.querySelector('#btnTalk').addEventListener('click', function () {
-    recognition.start();
-});
