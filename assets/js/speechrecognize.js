@@ -17,18 +17,18 @@ recognition.onresult = function (event) {
     var content = event.results[lastResult][0].transcript;
 
     //message.textContent = 'Voice Input: ' + content + '.';
+    if (content.includes("tìm")) {
+        window.location.href = "/home/Explorer";
+    }
     if (content.includes("tìm kiếm")) {
         window.location.href = "/home/Explorer";
     }
     if (content.includes("tìm sách")) {
         window.location.href = "/home/Explorer";
     }
-    if (content.includes("tìm")) {
+    else if (content.includes("tìm kiếm sách")) {
         window.location.href = "/home/Explorer";
     }
-    if (content.includes("tìm kiếm sách")) {
-        window.location.href = "/home/Explorer";
-    }    
 };
 
 recognition.onspeechend = function () {

@@ -67,8 +67,8 @@ namespace SmartLib.Controllers
         }
         public ActionResult Explorer()
         {
-            var books = db.Books.OrderByDescending(b => b.Id).ToList();
-            return View(books);
+            var books = db.Books.OrderByDescending(b => b.Id).ToList();         
+            return View("Explorer",books);
         }
         //Guid: Global unique identifier
         public ActionResult Books()
