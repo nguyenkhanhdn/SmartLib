@@ -23,6 +23,7 @@ namespace SmartLib.Models
         [Display(Name = "Mã loại")]
         public int CategoryId { get; set; }
         [Display(Name = "Loại sách")]
+        [Required(ErrorMessage = "Loại sách không được để trống.")]
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -17,6 +17,7 @@ namespace SmartLib.Models
     {
         public int Id { get; set; }
         [Display(Name = "Học sinh")]
+        [Required(ErrorMessage = "Học sinh không được để trống")]
         public int StudentId { get; set; }
         [Display(Name = "Mã sách")]
         public string BookCode { get; set; }
