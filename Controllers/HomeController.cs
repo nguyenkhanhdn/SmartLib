@@ -75,7 +75,6 @@ namespace SmartLib.Controllers
         {
             return View();
         }
-
         public ActionResult AddToCart(int id, string title, int quantity = 1)
         {
             //string[] s = id.Split('-');

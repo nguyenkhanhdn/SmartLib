@@ -72,12 +72,10 @@ namespace SmartLib.Controllers
             {
                 return View(model);
             }
-
             //var username = model.Email.Split('@')[0];
 
             string[] email = model.Email.Split('@');
             string username = email[0];
-
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -85,6 +83,10 @@ namespace SmartLib.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    if (username.ToLower().Contains("admin"))
+                    {
+                        return RedirectToAction("index", "Admin");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

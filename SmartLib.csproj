@@ -233,6 +233,7 @@
     <Content Include="assets\admin\img\apple-touch-icon.png" />
     <Content Include="assets\admin\img\card.jpg" />
     <Content Include="assets\admin\img\favicon.png" />
+    <Content Include="assets\admin\img\librarian.png" />
     <Content Include="assets\admin\img\logo.png" />
     <Content Include="assets\admin\img\messages-1.jpg" />
     <Content Include="assets\admin\img\messages-2.jpg" />
@@ -506,12 +507,14 @@
     <Content Include="assets\img\events-2.jpg" />
     <Content Include="assets\img\favicon.png" />
     <Content Include="assets\img\hero-bg.jpg" />
+    <Content Include="assets\img\librarian.png" />
     <Content Include="assets\img\library.jpeg" />
     <Content Include="assets\img\library.png" />
     <Content Include="assets\img\logo.png" />
     <Content Include="assets\img\messages-1.jpg" />
     <Content Include="assets\img\messages-2.jpg" />
     <Content Include="assets\img\messages-3.jpg" />
+    <Content Include="assets\img\mic.png" />
     <Content Include="assets\img\news-1.jpg" />
     <Content Include="assets\img\news-2.jpg" />
     <Content Include="assets\img\news-3.jpg" />
