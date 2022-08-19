@@ -70,6 +70,15 @@ namespace SmartLib.Controllers
             var books = db.Books.OrderByDescending(b => b.Id).ToList();         
             return View("Explorer",books);
         }
+        public ActionResult VoiceSearch(string title)
+        {
+            var books = db.Books.ToList();
+            if (title != null) {
+                title = WebUtility.HtmlDecode(title);
+                books = db.Books.Where(b=>b.Title.Contains(title)).ToList();
+            }
+            return View("Explorer", books);
+        }
         //Guid: Global unique identifier
         public ActionResult Books()
         {
