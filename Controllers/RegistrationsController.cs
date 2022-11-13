@@ -39,6 +39,15 @@ namespace SmartLib.Controllers
             db.Borrows.Add(borrow);
             db.SaveChanges();
 
+            var sid = reg.StudentId;
+            var stud = db.Students.Find(sid);
+            string email = "";
+            if (stud != null)
+            {
+                email = stud.Email;
+            }
+            SendEmail.Send(email);
+
             return RedirectToAction("Index");
         }
 

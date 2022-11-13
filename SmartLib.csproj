@@ -229,6 +229,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\smartlib.sql" />
     <Content Include="assets\admin\css\style.css" />
     <Content Include="assets\admin\img\apple-touch-icon.png" />
     <Content Include="assets\admin\img\card.jpg" />
@@ -1916,7 +1917,6 @@
     <Content Include="Views\Home\SearchResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="assets\images\" />
     <Folder Include="ckfinder\userfiles\files\" />
     <Folder Include="ckfinder\userfiles\flash\" />

@@ -16,19 +16,7 @@ recognition.onresult = function (event) {
     var lastResult = event.results.length - 1;
     var content = event.results[lastResult][0].transcript;
 
-    //var final = "";
-    //var interim = "";
-    //for (var i = 0; i < event.results.length; ++i) {
-    //    if (event.results[i].isFinal) {
-    //        final = event.results[i][0].transcript;
-    //    } else {
-    //        interim = event.results[i][0].transcript;
-    //    }
-    //}
-    //final_span.innerHTML = final;
-    //interim_span.innerHTML = interim;
-
-    var keyword1 = content.toLowerCase();
+    //var keyword1 = content.toLowerCase();
     var keyword2 = content.toLowerCase();
     //alert(keyword2);
     //debugger;

@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutSecurity.cshtml";
 }
 <h4>DANH MỤC SÁCH</h4>
-<hr style="width:100%;"/>
+<hr style="width:100%;" />
 <table class="display table-responsive" id="books">
     <thead>
         <tr>
@@ -16,17 +16,17 @@
                 @Html.DisplayNameFor(model => model.Brief)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Publisher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PubYear)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.Publisher)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PubYear)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Author)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.BookCode)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.BookCode)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.QtyInStock)
             </th>
@@ -37,8 +37,8 @@
                 @Html.DisplayNameFor(model => model.BorrowNo)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.CopyNo)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.CopyNo)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.CoverImg)
             </th>
@@ -69,17 +69,17 @@
 
                 </td>
                 @*<td>
-                    @Html.DisplayFor(modelItem => item.Publisher)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PubYear)
-                </td>*@
+                        @Html.DisplayFor(modelItem => item.Publisher)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PubYear)
+                    </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Author)
                 </td>
                 @*<td>
-                    @Html.DisplayFor(modelItem => item.BookCode)
-                </td>*@
+                        @Html.DisplayFor(modelItem => item.BookCode)
+                    </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.QtyInStock)
                 </td>
@@ -90,18 +90,18 @@
                     @Html.DisplayFor(modelItem => item.BorrowNo)
                 </td>
                 @*<td>
-                    @Html.DisplayFor(modelItem => item.CopyNo)
-                </td>*@
+                        @Html.DisplayFor(modelItem => item.CopyNo)
+                    </td>*@
                 <td>
                     <img src="@item.CoverImg" alt="Ảnh bìa" style="width:80px;height:auto;" />
                 </td>
                 <td>
-                    @{ 
+                    @{
                         var qrcodeItem = "";
                         qrcodeItem = "div" + item.Id.ToString();
                         <div id="@qrcodeItem"></div>
                     }
-                <script>
+                    <script>
                     var host = window.location.host;
                     new QRCode(document.getElementById('@qrcodeItem'), {
                         text: host + "/Home/AddToCart/@item.Id",
@@ -111,7 +111,7 @@
                         colorLight: "#ffffff",
                         correctLevel: QRCode.CorrectLevel.H
                     });
-                </script>
+                    </script>
                 </td>
                 <td>
                     <a href="/Books/Details/@item.Id">Chi tiết</a> |
@@ -138,4 +138,5 @@
             $('#books').DataTable();
         });
     </script>
-} 
+    <script src="~/assets/js/speechrecognize.js"></script>
+}

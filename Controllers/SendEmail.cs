@@ -37,7 +37,32 @@ namespace SmartLib.Controllers
             }
             return status;
         }
-
+        public static bool Send(string emailTo)
+        {
+            bool status = true;
+            try
+            {
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+                var mail = new MailMessage();
+                mail.From = new MailAddress("letuantudanang@gmail.com");
+                mail.To.Add(emailTo);
+                mail.Subject = "Xác nhận đăng ký sách";
+                mail.IsBodyHtml = true;
+                string htmlBody;
+                htmlBody = "Đơn đăng ký của bạn đã được xử lý";
+                mail.Body = htmlBody;
+                SmtpServer.Port = 587;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("letuantudanang@gmail.com", "tikxjwuvvtsmqmpq");
+                SmtpServer.EnableSsl = true;
+                SmtpServer.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                status = false;
+            }
+            return status;
+        }
         public static DataTable GetData()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;//Chuỗi kết nối đến sql
