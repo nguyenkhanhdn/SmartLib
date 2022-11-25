@@ -38,7 +38,7 @@ namespace SmartLib.Controllers
                     string ngaymuon = row[3].ToString();
                     string cont = string.Format("{0} mượn sách {1} từ ngày {2}, " +
                         "sách đã quá hạn yêu cầu trả sách sớm cho thư viện.", hocsinh, tensach, ngaymuon);
-                    SendEmail.Send(email, cont);
+                    SendEmail.SendGmail(email, cont);
                 }
             }
             catch (Exception ex)
@@ -63,6 +63,20 @@ namespace SmartLib.Controllers
             var duebooks = borrows.Where((b => b.BorrowDate.AddDays(14) < DateTime.Today));
             duebooks = duebooks.Where(d => d.ReturnDate == null);
             return View(duebooks);
+        }
+
+        public ActionResult Top10Books()
+        {
+            var books = db.Books.ToList().OrderByDescending(b=>b.BorrowNo).Take<Book>(10);
+
+            return View(books);
+        }
+
+        public ActionResult Top10Students()
+        {
+            var books = db.Books.ToList().OrderByDescending(b => b.BorrowNo);
+
+            return View(books);
         }
 
         // GET: Borrows/Details/5

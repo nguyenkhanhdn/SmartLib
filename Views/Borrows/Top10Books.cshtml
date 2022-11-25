@@ -1,0 +1,106 @@
+﻿@model IEnumerable<SmartLib.Models.Book>
+
+@{
+    ViewBag.Title = "Top10Books";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Top 10 sách được mượn nhiều</h2>
+
+<hr />
+
+<table class="display table table-responsive" id="books">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brief)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Publisher)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PubYear)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.BookCode)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.QtyInStock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViewNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BorrowNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CopyNo)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.CoverImg)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Category.Name)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.Raw(item.Brief)
+
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Publisher)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PubYear)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.BookCode)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.QtyInStock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ViewNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BorrowNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CopyNo)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.CoverImg)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#books').DataTable();
+        });
+    </script>
+}

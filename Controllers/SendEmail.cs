@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Web;
 
@@ -11,6 +12,41 @@ namespace SmartLib.Controllers
 {
     public class SendEmail
     {
+        public static bool SendGmail(string mailTo,string body)
+        {
+            bool isSuccess = false;
+
+            String SendMailFrom = "ngocminhadvertiser@gmail.com";
+            String SendMailTo = mailTo;
+            String SendMailSubject = "Nhắc nhở: học sinh mượn sách quá hạn.";
+            String SendMailBody = body;
+
+            try
+            {
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com", 587);
+                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+                MailMessage email = new MailMessage();
+                // START
+                email.From = new MailAddress(SendMailFrom);
+                email.To.Add(SendMailTo);
+                email.CC.Add(SendMailFrom);
+                email.Subject = SendMailSubject;
+                email.Body = SendMailBody;
+                //END
+                SmtpServer.Timeout = 5000;
+                SmtpServer.EnableSsl = true;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new NetworkCredential(SendMailFrom, "qzjlleopacyhdyay");
+                SmtpServer.Send(email);
+
+                isSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+            }
+            return isSuccess;
+        }
         public static bool Send(string to, string msg)
         {
             bool status = true;

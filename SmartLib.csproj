@@ -1915,6 +1915,7 @@
     <Content Include="Views\Home\History.cshtml" />
     <Content Include="Views\Home\AdvancedSearch.cshtml" />
     <Content Include="Views\Home\SearchResult.cshtml" />
+    <Content Include="Views\Borrows\Top10Books.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\images\" />
