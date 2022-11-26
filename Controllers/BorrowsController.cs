@@ -18,6 +18,7 @@ namespace SmartLib.Controllers
         public ActionResult Index()
         {
             var borrows = db.Borrows.Include(b => b.Book).Include(b => b.Student);
+
             return View(borrows.ToList());
         }
         //Reminder
