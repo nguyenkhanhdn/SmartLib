@@ -65,19 +65,20 @@ namespace SmartLib.Controllers
             duebooks = duebooks.Where(d => d.ReturnDate == null);
             return View(duebooks);
         }
-
+        [AllowAnonymous]
         public ActionResult Top10Books()
         {
             var books = db.Books.ToList().OrderByDescending(b=>b.BorrowNo).Take<Book>(10);
 
             return View(books);
         }
-
+        [AllowAnonymous]
         public ActionResult Top10Students()
         {
-            var books = db.Books.ToList().OrderByDescending(b => b.BorrowNo);
+            Top10Students top10 = new Top10Students();
+            var students = top10.GetTop10Students();
 
-            return View(books);
+            return View(students);
         }
 
         // GET: Borrows/Details/5

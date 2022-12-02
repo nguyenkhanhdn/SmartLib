@@ -1,0 +1,49 @@
+﻿@model IEnumerable<SmartLib.Models.Student>
+
+@{
+    ViewBag.Title = "Top10Students";
+    Layout = "~/Views/Shared/_LayoutSecurity.cshtml";
+}
+
+<h2>Top 10 học sinh mượn nhiều sách thư viện</h2>
+<hr />
+@{
+    var cnt = 0;
+}
+<table class="table table-bordered table-hover" id="top10students">
+    <tr>
+        <th>
+            <center>#</center>            
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            Mã lớp
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        cnt++;
+        <tr>
+            <td>
+                <center>@cnt</center> 
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassId)
+            </td>
+        </tr>
+    }
+</table>
